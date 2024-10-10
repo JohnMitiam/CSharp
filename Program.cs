@@ -1,39 +1,72 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello World!");
-Console.WriteLine("Its me Jacko!");
+﻿Console.WriteLine("Hello, OOP");
 Console.WriteLine(" ");
 
-Console.WriteLine("*We are Learning Integers");
-decimal a = 42.1M; // explicit type
-Console.WriteLine($"Integer a = {a}");
-decimal b = 38.2M;
-Console.WriteLine($"Integer b = {b}");
-decimal c = a + b;
-Console.WriteLine($"The answer to a + b is {c}");
-Console.WriteLine(" ");
 
-Console.WriteLine("*We're Learning IF's Statements");
-int d = 5;
-int e = 5;
-int f = 10;
-int g = d + e + f;
+// Part 1
+var p1 = new Person("Jacko", "Mitiam", new DateOnly(1998, 09, 04));
 
+var p2 = new Person("PersonX", "PersonY", new DateOnly(1997, 04, 09));
 
-if (g == 20)
+p1.Pets.Add(new Dog("Cat", "Hotdog", new DateOnly (2005,05,25)));
+p1.Pets.Add(new Dog("Dino", "Dinosaur", new DateOnly (2006,05,25)));
+
+p2.Pets.Add(new Cat("Dog", "Persian", new DateOnly(2007, 05, 25)));
+
+List<Person> people = [p1, p2];
+
+foreach(var p in people)
 {
-    Console.WriteLine("The answer is equal to 20");
+    
+    Console.WriteLine($"{p}");
+
+    foreach (var pet in p.Pets)
+    {
+        Console.WriteLine($"{pet}");
+    }
+    Console.WriteLine(" ");
 }
-else
-{
-    if ((g < 20) && (d == e))
-    {
-        Console.WriteLine("The first numer is equal to the second");
-        Console.WriteLine($"The Answer is less than 20 so, integer D + integer E is {f}");
 
-    }
-    else
+public class Person(string firstname, string lastname, DateOnly birthday)
+{
+    public string First { get; set; } = firstname;
+
+    public string Last {get; set;} = lastname;
+
+    public DateOnly Birthday { get; set; } = birthday;
+
+    public List<Pet> Pets { get; } = new();
+
+    public override string ToString()
     {
-        Console.WriteLine("the answer is greater than 20");
-        Console.WriteLine("Or the first number is not equal to the second");
+        return $"Im {First} {Last} Owner of this Pet(s):";
     }
+}
+
+
+// part 2
+public abstract class Pet(string firstname, string breed, DateOnly dob)
+{
+    public string First { get; } = firstname;
+
+    public string Breed { get;} = breed;
+
+    public DateOnly Dob { get;  } = dob;
+
+    public abstract string MakeNoise();
+
+    public override string ToString()
+    {
+        return $"My Name is {First} I'm a {Breed} {GetType().Name} born {Dob} and I {MakeNoise()} Look!";
+    }
+
+}
+
+public class Dog(string firstname, string breed, DateOnly dob) : Pet(firstname, breed, dob)
+{
+    public override string MakeNoise() => "bark";
+}
+
+public class Cat(string firstname, string breed, DateOnly dob) : Pet(firstname, breed, dob)
+{
+    public override string MakeNoise() => "meow";
 }
